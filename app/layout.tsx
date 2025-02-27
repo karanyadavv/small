@@ -19,6 +19,7 @@ import {
   SignedOut,
   UserButton,
 } from '@clerk/nextjs'
+import { Button } from "@/components/ui/button";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -46,15 +47,16 @@ export default function RootLayout({
       <body
         className={`${geistSans.variable} ${geistMono.variable} antialiased`}
       >
-        <Menubar className="p-6 flex justify-end gap-8">
+        <Menubar className="p-8 flex justify-end gap-8">
           <MenubarMenu>
             <MenubarTrigger>File</MenubarTrigger>
           </MenubarMenu>
           <Menubar>
             <MenubarMenu>
               <SignedOut>
-                <SignInButton />
-                <SignUpButton />
+                <SignInButton mode="modal">
+                  <Button>Login</Button>
+                </SignInButton >
               </SignedOut>
             </MenubarMenu>
             <MenubarMenu>
