@@ -1,6 +1,24 @@
 import type { Metadata } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
+import {
+  Menubar,
+  MenubarContent,
+  MenubarItem,
+  MenubarMenu,
+  MenubarSeparator,
+  MenubarShortcut,
+  MenubarTrigger,
+} from "@/components/ui/menubar"
+
+import {
+  ClerkProvider,
+  SignInButton,
+  SignUpButton,
+  SignedIn,
+  SignedOut,
+  UserButton,
+} from '@clerk/nextjs'
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -23,12 +41,33 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
+    <ClerkProvider>
     <html lang="en">
       <body
         className={`${geistSans.variable} ${geistMono.variable} antialiased`}
       >
+        <Menubar className="p-6 flex justify-end gap-8">
+          <MenubarMenu>
+            <MenubarTrigger>File</MenubarTrigger>
+          </MenubarMenu>
+          <Menubar>
+            <MenubarMenu>
+              <SignedOut>
+                <SignInButton />
+                <SignUpButton />
+              </SignedOut>
+            </MenubarMenu>
+            <MenubarMenu>
+              <SignedIn>
+                <UserButton />
+              </SignedIn>
+            </MenubarMenu>
+          </Menubar>
+        </Menubar>
+            
         {children}
       </body>
     </html>
+    </ClerkProvider>
   );
 }
