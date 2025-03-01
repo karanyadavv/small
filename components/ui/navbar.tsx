@@ -28,8 +28,8 @@ export default function Navbar(){
                   <Button>Login</Button>
                 </SignInButton >
               </SignedOut>
-            </MenubarMenu>
-            <MenubarMenu>
+            {/* </MenubarMenu>
+            <MenubarMenu> */}
               <SignedIn>
                 <UserButton />
               </SignedIn>
