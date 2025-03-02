@@ -13,14 +13,14 @@ export function useAllArticles(){
 }
 
 export function useDraftArticles(){
-  return useQuery<User[]>({
+  return useQuery<Article[]>({
       queryKey: ['fetchDraftArticles'],
       queryFn: fetchDraftArticles
   })
 }
 
 export function usePublishedArticles(){
-  return useQuery<User[]>({
+  return useQuery<Article[]>({
     queryKey: ['fetchPublishedArticles'],
     queryFn: fetchPublishedArticles
   })

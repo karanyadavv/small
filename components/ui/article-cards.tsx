@@ -38,7 +38,7 @@ export default function ArticleCard(){
             <CardTitle>Draft Articles</CardTitle>
           </CardHeader>
           <CardContent>
-            <p>{draftArticles?.[0]?.articles.length ?? 0}</p>
+            <p>{draftArticles?.length ?? 0}</p>
           </CardContent>
         </Card>
         <Card className="w-full md:w-1/3 relative">
@@ -49,7 +49,7 @@ export default function ArticleCard(){
             <CardTitle>Published Articles</CardTitle>
           </CardHeader>
           <CardContent>
-            <p>{publishedArticles?.[0]?.articles.length ?? 0}</p>
+            <p>{publishedArticles?.length ?? 0}</p>
           </CardContent>
         </Card>
       </div>

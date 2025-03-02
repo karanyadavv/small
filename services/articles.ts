@@ -10,7 +10,7 @@ export async function fetchArticles(){
 }
 
 export async function userArticles(){
-  const response  = await fetch('/api/users');
+  const response  = await fetch('/api/articles/all');
   if(!response.ok){
     throw new Error ("Failed to fetch your articles");
   }

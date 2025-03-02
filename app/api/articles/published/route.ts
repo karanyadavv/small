@@ -1,22 +1,18 @@
 import prisma from "@/lib/prisma";
 import { auth } from "@clerk/nextjs/server";
 import { NextResponse } from "next/server";
-import { getAuthenticatedUser } from "../../users/route";
+import { getAuthenticatedUser } from "../all/route";
 
 
 
 export async function GET(request: Request) {
     const { userId, error } = await getAuthenticatedUser();
-      if (error) return error; // If unauthorized, return early
+    if (error) return error; // If unauthorized, return early
   try{
-    const publishedArticles = await prisma.user.findMany({
+    const publishedArticles = await prisma.articles.findMany({
       where: {
-        id:{ equals: userId }
-      },
-      include:{
-        articles:{
-          where: { publishStatus:"published" }
-        }
+        authorId: userId,
+        publishStatus: "published"
       }
     });
     return NextResponse.json(publishedArticles, {status: 200})
