@@ -19,17 +19,9 @@ import { Skeleton } from "@/components/ui/skeleton"
 import fetchArticles from "@/services/articles";
 import { useQuery } from "@tanstack/react-query";
 import { Button } from "./button";
+import { Article } from "@/type.ts/articles";
 
 
-interface Article{
-  id: string,
-  title: string,
-  content: string,
-  publishStatus: string,
-  publishedAt?: Date,
-  updatedAt: Date,
-  authorId: string
-}
 
 export default function Articles(){
   const { isError, isPending, data } = useQuery<Article[]>({
