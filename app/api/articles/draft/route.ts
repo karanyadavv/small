@@ -1,17 +1,13 @@
 import prisma from "@/lib/prisma";
 import { auth } from "@clerk/nextjs/server";
 import { NextResponse } from "next/server";
+import { getAuthenticatedUser } from "../../users/route";
 
 
 
 export async function GET(request: Request) {
-    // Use `auth()` to get the user's ID
-    const { userId } = await auth()
-
-    // Protect the route by checking if the user is signed in
-    if (!userId) {
-      return new NextResponse('Unauthorized', { status: 401 })
-    }
+    const { userId, error } = await getAuthenticatedUser();
+      if (error) return error; // If unauthorized, return early
   try{
     const draftArticles = await prisma.user.findMany({
       where: {

@@ -1,7 +1,29 @@
+"use client";
+
 import { CircleCheck, NotebookPen, Radio } from "lucide-react";
 import { Card, CardContent, CardHeader, CardTitle } from "./card";
+import { useQuery } from "@tanstack/react-query";
+import { User } from "@/types/types";
+import fetchPublishedArticles from "@/services/published-articles";
+import fetchDraftArticles from "@/services/draft-articles";
+import { userArticles } from "@/services/articles";
+
 
 export default function ArticleCard(){
+  const { isError, isPending, data : publishedArticles } = useQuery<User[]>({
+    queryKey: ['fetchPublishedArticles'],
+    queryFn: fetchPublishedArticles
+  })
+
+  const { data : draftArticles } = useQuery<User[]>({
+    queryKey: ['fetchDraftArticles'],
+    queryFn: fetchDraftArticles
+  })
+
+  const { data : allArticles } = useQuery<User[]>({
+    queryKey: ['userArticles'],
+    queryFn: userArticles
+  })
   return(
     <div className="p-4 md:p-0 mb-6">
       <div className="mb-6 pl-2">
@@ -16,7 +38,7 @@ export default function ArticleCard(){
             <CardTitle>All articles</CardTitle>
           </CardHeader>
           <CardContent>
-            <p>03</p>
+            <p>{allArticles?.length ?? 0}</p>
           </CardContent>
         </Card>
         <Card className="w-full md:w-1/3 relative">
@@ -27,7 +49,7 @@ export default function ArticleCard(){
             <CardTitle>Draft Articles</CardTitle>
           </CardHeader>
           <CardContent>
-            <p>01</p>
+            <p>{draftArticles?.[0]?.articles.length ?? 0}</p>
           </CardContent>
         </Card>
         <Card className="w-full md:w-1/3 relative">
@@ -38,7 +60,7 @@ export default function ArticleCard(){
             <CardTitle>Published Articles</CardTitle>
           </CardHeader>
           <CardContent>
-            <p>02</p>
+            <p>{publishedArticles?.[0]?.articles.length ?? 0}</p>
           </CardContent>
         </Card>
       </div>

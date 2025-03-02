@@ -19,7 +19,7 @@ import { Skeleton } from "@/components/ui/skeleton"
 import fetchArticles from "@/services/articles";
 import { useQuery } from "@tanstack/react-query";
 import { Button } from "./button";
-import { Article } from "@/type.ts/articles";
+import { Article } from "@/types/types";
 
 
 
