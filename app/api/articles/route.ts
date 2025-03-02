@@ -7,7 +7,8 @@ import { NextResponse } from "next/server";
 export async function GET(request: Request) {
   try{
     const articles = await prisma.articles.findMany({
-      where: { publishStatus: "published" }
+      where: { publishStatus: "published" },
+      orderBy: { createdAt: "desc" }
     });
     return NextResponse.json(articles, {status: 200})
   }catch(error){

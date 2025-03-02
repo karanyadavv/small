@@ -1,4 +1,4 @@
-"use client"
+import Articles from "@/components/ui/articles";
 
 export default function Home() {
 
@@ -7,6 +7,7 @@ export default function Home() {
       Hello world
       <div>
       <h1>Data from API</h1>
+      <Articles />
     </div>
     </div>
   );
