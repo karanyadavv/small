@@ -16,17 +16,20 @@ import {
   CardTitle,
 } from "@/components/ui/card"
 import { Skeleton } from "@/components/ui/skeleton"
-import fetchArticles from "@/services/articles";
 import { useQuery } from "@tanstack/react-query";
 import { Button } from "./button";
 import { Article } from "@/types/types";
+import { fetchArticles } from "@/services/articles";
 
 
 
 export default function Articles(){
   const { isError, isPending, data } = useQuery<Article[]>({
     queryKey: ['fetchArticles'],
-    queryFn: fetchArticles
+    queryFn: fetchArticles,
+    staleTime: 10 * 60 * 1000, // 10 minutes
+    refetchOnMount: false,
+    refetchOnWindowFocus: false,
   })
 
   if(isError){
@@ -44,7 +47,7 @@ export default function Articles(){
   if(isPending){
     return (
       <div className="flex flex-col space-y-3 mt-4">
-        <Skeleton className="h-[150px] w-xs md:w-2xl rounded-xl" />
+        <Skeleton className="h-[180px] w-xs md:w-2xl rounded-xl" />
         <div className="space-y-2">
           <Skeleton className="h-4 w-xs md:w-2xl" />
           <Skeleton className="h-4 w-xs md:2-2xl" />

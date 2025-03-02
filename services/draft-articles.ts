@@ -1,5 +1,5 @@
 
-export default async function fetchPublishedArticles(){
+export default async function fetchDraftArticles(){
   const response  = await fetch('/api/articles/draft');
   if(!response.ok){
     throw new Error ("Failed to fetch draft articles");

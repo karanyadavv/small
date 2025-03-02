@@ -2,28 +2,17 @@
 
 import { CircleCheck, NotebookPen, Radio } from "lucide-react";
 import { Card, CardContent, CardHeader, CardTitle } from "./card";
-import { useQuery } from "@tanstack/react-query";
-import { User } from "@/types/types";
-import fetchPublishedArticles from "@/services/published-articles";
-import fetchDraftArticles from "@/services/draft-articles";
-import { userArticles } from "@/services/articles";
+import { useAllArticles, useDraftArticles, usePublishedArticles } from "@/hooks/useArticle";
+
 
 
 export default function ArticleCard(){
-  const { isError, isPending, data : publishedArticles } = useQuery<User[]>({
-    queryKey: ['fetchPublishedArticles'],
-    queryFn: fetchPublishedArticles
-  })
 
-  const { data : draftArticles } = useQuery<User[]>({
-    queryKey: ['fetchDraftArticles'],
-    queryFn: fetchDraftArticles
-  })
+  const { data: allArticles } = useAllArticles();
+  const { data: publishedArticles } = usePublishedArticles();
+  const { data: draftArticles } = useDraftArticles();
 
-  const { data : allArticles } = useQuery<User[]>({
-    queryKey: ['userArticles'],
-    queryFn: userArticles
-  })
+
   return(
     <div className="p-4 md:p-0 mb-6">
       <div className="mb-6 pl-2">
