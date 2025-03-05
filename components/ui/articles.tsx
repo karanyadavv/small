@@ -60,13 +60,13 @@ export default function Articles(){
     <div className="flex flex-col items-center space-y-8 p-4 w-full">
       {data.map((article)=>{
         return (
-          <div key={article.id} className="w-full sm:max-w-2xl">
+          <div key={article.id} className="w-full sm:max-w-2xl text-pretty text-xl font-bold tracking-[-0.015em] text-gray-950">
             <Card className="w-full">
               <CardHeader>
                 <CardTitle className="font-extrabold text-xl hover:underline cursor-pointer transition-all duration-500">{article.title}</CardTitle>
               </CardHeader>
               <CardContent>
-                <p className="text-xs font-light">{article.content.slice(0,300)}</p>
+                <p className="mb-auto mt-3 line-clamp-2 text-sm/5 text-gray-600">{article.content.slice(0,300)}</p>
               </CardContent>
               <CardFooter>
                 <Button variant={"outline"}>
