@@ -2,6 +2,7 @@ export interface Article{
   id: string,
   title: string,
   content: string,
+  slug: string,
   publishStatus: string,
   publishedAt?: Date,
   updatedAt: Date,

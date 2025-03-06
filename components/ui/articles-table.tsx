@@ -11,6 +11,8 @@ import {
 } from "@/components/ui/table"
 import { useAllArticles } from "@/hooks/useArticle";
 import { Skeleton } from "./skeleton";
+import { Button } from "./button";
+import { SquarePen, Trash2 } from "lucide-react";
 
 
 
@@ -86,6 +88,7 @@ export function ArticlesTable() {
           <TableHead className="w-[400px]">Title</TableHead>
           <TableHead>Status</TableHead>
           <TableHead>Publish Date</TableHead>
+          <TableHead>Slug</TableHead>
           <TableHead className="text-right">Action</TableHead>
         </TableRow>
       </TableHeader>
@@ -95,7 +98,15 @@ export function ArticlesTable() {
             <TableCell className="font-medium">{articles.title.slice(0,35)}</TableCell>
             <TableCell>{articles.publishStatus}</TableCell>
             <TableCell>{articles.publishedAt ? new Date(articles.publishedAt).toLocaleDateString() : "Not available"}</TableCell>
-            <TableCell>Edit & Delete</TableCell>
+            <TableCell>{articles.slug}</TableCell>
+            <TableCell className="space-x-2 text-right">
+              <Button variant={"outline"} className="h-8 w-8 cursor-pointer">
+                <SquarePen />
+              </Button>
+              <Button variant={"destructive"} className="h-8 w-8 cursor-pointer">
+                <Trash2 />
+              </Button>
+            </TableCell>
           </TableRow>
         ))}
       </TableBody>

@@ -22,8 +22,9 @@ import { Article } from "@/types/types";
 import { fetchArticles } from "@/services/articles";
 
 
-
 export default function Articles(){
+
+
   const { isError, isPending, data } = useQuery<Article[]>({
     queryKey: ['fetchArticles'],
     queryFn: fetchArticles,
@@ -38,7 +39,7 @@ export default function Articles(){
         <AlertCircle className="h-4 w-4" />
         <AlertTitle>Error</AlertTitle>
         <AlertDescription>
-          Failed to fetch articles
+          Failed to fetch articles{isError}
         </AlertDescription>
       </Alert>
     )

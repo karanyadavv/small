@@ -14,26 +14,32 @@ datasource db {
 }
 
 model User {
-  id            String      @id @unique
+  id            String              @id @unique
   name          String
-  email         String      @unique
+  email         String              @unique
   articles      Articles[]
   comments      Comments[]
   likes         Likes[]
 }
 
 model Articles {
-  id              String      @id @unique @default(uuid())
+  id              String             @id @unique @default(uuid())
   title           String      
   content         String
-  publishStatus   String      @default("draft") //draft, published, archived
+  publishStatus   PublishStatus      @default(draft) //draft, published
   publishedAt     DateTime?
-  createdAt       DateTime    @default(now())
-  updatedAt       DateTime    @updatedAt
+  slug            String             @unique
+  createdAt       DateTime           @default(now())
+  updatedAt       DateTime?          @updatedAt
   authorId        String      
-  author          User        @relation(fields: [authorId], references: [id])
-  comments        Comments[]  @relation("ArticleToComments")
-  likes           Likes[]     @relation("ArticleToLikes")
+  author          User               @relation(fields: [authorId], references: [id])
+  comments        Comments[]         @relation("ArticleToComments")
+  likes           Likes[]            @relation("ArticleToLikes")
+}
+
+enum PublishStatus {
+  draft
+  published
 }
 
 model Comments {
