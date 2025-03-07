@@ -1,3 +1,17 @@
+import { z } from "zod";
+
+
+const articleSchema = z.object({
+  id: z.string(),
+  title: z.string(),
+  content: z.string(),
+  slug: z.string(),
+  publishStatus: z.enum(["draft","published"]),
+  publishedAt: z.date().nullable(),
+  createdAt: z.date(),
+  updatedAt: z.date(),
+  authorId: z.string()
+})
 
 export async function fetchArticles(){
   const response  = await fetch('/api/articles');
@@ -5,7 +19,7 @@ export async function fetchArticles(){
     throw new Error ("Failed to fetch articles");
   }
   const data  = await response.json();
-  return data;
+  return articleSchema.parse(data);
   
 }
 

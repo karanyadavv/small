@@ -38,18 +38,18 @@ export async function POST(request:Request) {
   if (error) return error; // If unauthorized, return early
   try{
     const body = await request.json();
-    const validatedSchema =  articleSchema.parse(body);
+    const validatedSchema =  articleSchema.safeParse(body);
+    if(!validatedSchema.success){
+      return NextResponse.json({error: validatedSchema.error.errors}, { status: 400 });
+    }
     const article = await prisma.articles.create({
       data: {
-        ...validatedSchema,
+        ...validatedSchema.data,
         authorId: userId
       },
     });
     return NextResponse.json(article, { status: 200 })
   }catch(error: any){
-    if(error instanceof z.ZodError){
-      return NextResponse.json({error: error.errors}, { status: 400 });
-    }
     console.error(error);
     return NextResponse.json({error: error.message }, {status: 500});
   }
