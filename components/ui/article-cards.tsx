@@ -2,13 +2,13 @@
 
 import { CircleCheck, NotebookPen, Radio } from "lucide-react";
 import { Card, CardContent, CardHeader, CardTitle } from "./card";
-import { useAllArticles, useDraftArticles, usePublishedArticles } from "@/hooks/useArticle";
+import { useUserAllArticles, useDraftArticles, usePublishedArticles } from "@/hooks/useArticle";
 
 
 
 export default function ArticleCard(){
 
-  const { data: allArticles } = useAllArticles();
+  const { data: allArticles } = useUserAllArticles();
   const { data: publishedArticles } = usePublishedArticles();
   const { data: draftArticles } = useDraftArticles();
 

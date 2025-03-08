@@ -10,28 +10,17 @@ import {
 import {
   Card,
   CardContent,
-  CardDescription,
   CardFooter,
   CardHeader,
   CardTitle,
 } from "@/components/ui/card"
 import { Skeleton } from "@/components/ui/skeleton"
-import { useQuery } from "@tanstack/react-query";
 import { Button } from "./button";
-import { Article } from "@/types/types";
-import { fetchArticles } from "@/services/articles";
-
+import { useAllArticles } from "@/hooks/useArticle";
 
 export default function Articles(){
 
-
-  const { isError, isPending, data } = useQuery<Article[]>({
-    queryKey: ['fetchArticles'],
-    queryFn: fetchArticles,
-    staleTime: 10 * 60 * 1000, // 10 minutes
-    refetchOnMount: false,
-    refetchOnWindowFocus: false,
-  })
+  const { data: allArticles, isError, isPending } = useAllArticles();
 
   if(isError){
     return (
@@ -59,7 +48,7 @@ export default function Articles(){
 
   return(
     <div className="flex flex-col items-center space-y-8 p-4 w-full">
-      {data.map((article)=>{
+      {allArticles.map((article)=>{
         return (
           <div key={article.id} className="w-full sm:max-w-2xl text-pretty text-xl font-bold tracking-[-0.015em] text-gray-950">
             <Card className="w-full">

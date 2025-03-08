@@ -1,13 +1,8 @@
 import prisma from "@/lib/prisma";
+import { articleSchema } from "@/types/types";
 import { auth } from "@clerk/nextjs/server";
 import { NextResponse } from "next/server";
-import { z } from "zod";
 
-const articleSchema = z.object({
-  title: z.string().min(5, "Title should be atleast 5 characters long"),
-  slug: z.string().min(1, "Slug must be at least 1 character"),
-  content: z.string().min(50, "Article content should be at least 50 characters long")
-})
 
 
 export async function getAuthenticatedUser() {

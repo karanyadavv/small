@@ -1,4 +1,5 @@
 import prisma from "@/lib/prisma";
+import { articleSchema } from "@/types/types";
 import { NextResponse } from "next/server";
 
 

@@ -9,7 +9,7 @@ import {
   TableHeader,
   TableRow,
 } from "@/components/ui/table"
-import { useAllArticles } from "@/hooks/useArticle";
+import { useUserAllArticles } from "@/hooks/useArticle";
 import { Skeleton } from "./skeleton";
 import { Button } from "./button";
 import { SquarePen, Trash2 } from "lucide-react";
@@ -17,7 +17,7 @@ import { SquarePen, Trash2 } from "lucide-react";
 
 
 export function ArticlesTable() {
-  const { data: allArticles, isError, isLoading } = useAllArticles();
+  const { data: allArticles, isError, isLoading } = useUserAllArticles();
 
   // Loading state rendering
   if (isLoading) {
@@ -56,29 +56,29 @@ export function ArticlesTable() {
     );
   }
   
-  // Empty state
-  // if (!useAllArticles || useAllArticles?.length === 0) {
-  //   return (
-  //     <Table>
-  //       <TableCaption>No articles found.</TableCaption>
-  //       <TableHeader>
-  //         <TableRow>
-  //           <TableHead className="w-[400px]">Title</TableHead>
-  //           <TableHead>Status</TableHead>
-  //           <TableHead>Publish Date</TableHead>
-  //           <TableHead className="text-right">Action</TableHead>
-  //         </TableRow>
-  //       </TableHeader>
-  //       <TableBody>
-  //         <TableRow>
-  //           <TableCell colSpan={4} className="text-center">
-  //             You have no articles yet.
-  //           </TableCell>
-  //         </TableRow>
-  //       </TableBody>
-  //     </Table>
-  //   );
-  // }
+  //Empty state
+  if (isError) {
+    return (
+      <Table>
+        <TableCaption>No articles found.</TableCaption>
+        <TableHeader>
+          <TableRow>
+            <TableHead className="w-[400px]">Title</TableHead>
+            <TableHead>Status</TableHead>
+            <TableHead>Publish Date</TableHead>
+            <TableHead className="text-right">Action</TableHead>
+          </TableRow>
+        </TableHeader>
+        <TableBody>
+          <TableRow>
+            <TableCell colSpan={4} className="text-center">
+              You have no articles yet.
+            </TableCell>
+          </TableRow>
+        </TableBody>
+      </Table>
+    );
+  }
   
   return (
     <Table>
