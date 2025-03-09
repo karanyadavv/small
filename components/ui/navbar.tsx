@@ -19,7 +19,7 @@ export default function Navbar(){
   return (
     <div className="w-full md:max-w-[1200px] mx-auto">
       <Menubar className="p-8 flex justify-between items-center gap-8 m-4 font-[family-name:var(--font-geist-sans)]">
-            <Link href={"/"} className="cursir-pointer font-bold">
+            <Link href={"/"} className="cursor-pointer font-bold">
               small
             </Link>
             <div className="flex items-center gap-4">

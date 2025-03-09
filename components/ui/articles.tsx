@@ -56,7 +56,7 @@ export default function Articles(){
                 <CardTitle className="font-extrabold text-xl hover:underline cursor-pointer transition-all duration-500">{article.title}</CardTitle>
               </CardHeader>
               <CardContent>
-                <p className="mb-auto mt-3 line-clamp-2 text-sm/5 text-gray-600">{article.content.slice(0,300)}</p>
+                <p className="mb-auto mt-3 line-clamp-2 text-sm/5 text-gray-600">{article.content}</p>
               </CardContent>
               <CardFooter>
                 <Button variant={"outline"}>

@@ -8,9 +8,9 @@ export function useAllArticles(){
   return useQuery<Article[]>({
     queryKey: ['fetchArticles'],
     queryFn: fetchArticles,
-    // staleTime: 10 * 60 * 1000, // 10 minutes
-    // refetchOnMount: false,
-    // refetchOnWindowFocus: false,
+    staleTime: 10 * 60 * 1000, // 10 minutes
+    refetchOnMount: false,
+    refetchOnWindowFocus: false,
   })
 }
 

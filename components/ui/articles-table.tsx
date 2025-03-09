@@ -13,6 +13,7 @@ import { useUserAllArticles } from "@/hooks/useArticle";
 import { Skeleton } from "./skeleton";
 import { Button } from "./button";
 import { SquarePen, Trash2 } from "lucide-react";
+import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from "./tooltip";
 
 
 
@@ -100,12 +101,28 @@ export function ArticlesTable() {
             <TableCell>{articles.publishedAt ? new Date(articles.publishedAt).toLocaleDateString() : "Not available"}</TableCell>
             <TableCell>{articles.slug}</TableCell>
             <TableCell className="space-x-2 text-right">
-              <Button variant={"outline"} className="h-8 w-8 cursor-pointer">
-                <SquarePen />
-              </Button>
-              <Button variant={"destructive"} className="h-8 w-8 cursor-pointer">
-                <Trash2 />
-              </Button>
+            <TooltipProvider>
+              <Tooltip>
+                <TooltipTrigger>
+                  <Button variant={"outline"} className="h-8 w-8 cursor-pointer">
+                    <SquarePen />
+                  </Button>
+                </TooltipTrigger>
+                <TooltipContent>
+                  <p>Edit article</p>
+                </TooltipContent>
+              </Tooltip>
+              <Tooltip>
+                <TooltipTrigger>
+                  <Button variant={"destructive"} className="h-8 w-8 cursor-pointer">
+                    <Trash2 />
+                  </Button>
+                </TooltipTrigger>
+                <TooltipContent>
+                  <p>Delete article</p>
+                </TooltipContent>
+              </Tooltip>
+            </TooltipProvider>
             </TableCell>
           </TableRow>
         ))}
