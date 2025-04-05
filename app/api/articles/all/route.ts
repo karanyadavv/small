@@ -1,5 +1,5 @@
 import prisma from "@/lib/prisma";
-import { articleSchema } from "@/types/types";
+import { createArticleSchema } from "@/types/types";
 import { auth } from "@clerk/nextjs/server";
 import { NextResponse } from "next/server";
 
@@ -33,7 +33,7 @@ export async function POST(request:Request) {
   if (error) return error; // If unauthorized, return early
   try{
     const body = await request.json();
-    const validatedSchema =  articleSchema.safeParse(body);
+    const validatedSchema =  createArticleSchema.safeParse(body);
     if(!validatedSchema.success){
       return NextResponse.json({error: validatedSchema.error.errors}, { status: 400 });
     }
