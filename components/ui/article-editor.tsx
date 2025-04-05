@@ -7,11 +7,22 @@ import { Button } from "./button";
 import { Info } from "lucide-react";
 import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from "./tooltip";
 import { Editor } from "./DynamicEditor";
+import { useUser } from "@clerk/nextjs";
+import { Block } from "@blocknote/core";
 
 export function ArticleEditor(){
   const [ title, setTitle ] = useState("");
+  const [ blocks, setBlocks ] = useState<String>();
   const [ slug, setSlug ] = useState("");
+  const { user } = useUser();
+  
 
+  
+  const saveToState = (jsonBlocks: string) => {
+    setBlocks(JSON.stringify(jsonBlocks));
+    console.log(jsonBlocks);
+
+  }
 
   const handleTtitleChange = (e : React.ChangeEvent<HTMLInputElement>) => {
     setTitle(e.target.value);
@@ -26,8 +37,23 @@ export function ArticleEditor(){
       .replace(/\s+/g, "-")
     setSlug(slugified);
   }
+
+
+  const publishArticle = async() => {
+    const response  = await fetch("/api/articles/all", {
+      method: "POST",
+      body: JSON.stringify({
+        title,
+        slug,
+        content: blocks,
+        publishStatus: "published",
+        authorId: user?.id
+      })
+    })
+    return response.json();
+  }
   return (
-  <div className="space-y-6">
+  <div className="space-y-12">
     <div className="md:max-w-[80%] space-y-8">
 
       <div className="space-y-4">
@@ -69,8 +95,14 @@ export function ArticleEditor(){
         </div>
       </div>
     </div>
-      <div className="w-full pt-8">
-        <Editor />
+      <div className="w-full">
+        <Editor 
+          onChange={saveToState} />
+        <div className="space-x-4 mb-12">
+
+        <Button variant={"outline"} onClick={publishArticle}>Publish</Button>
+        <Button variant={"default"}>Save as draft</Button>
+        </div>
       </div>
   </div>
 )}
