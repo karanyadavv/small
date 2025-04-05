@@ -8,7 +8,6 @@ import { Info } from "lucide-react";
 import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from "./tooltip";
 import { Editor } from "./DynamicEditor";
 import { useUser } from "@clerk/nextjs";
-import { Block } from "@blocknote/core";
 
 export function ArticleEditor(){
   const [ title, setTitle ] = useState("");
@@ -39,6 +38,8 @@ export function ArticleEditor(){
   }
 
 
+  const currentDate = new Date();
+  console.log(currentDate.toString());
   const publishArticle = async() => {
     const response  = await fetch("/api/articles/all", {
       method: "POST",
@@ -47,6 +48,7 @@ export function ArticleEditor(){
         slug,
         content: blocks,
         publishStatus: "published",
+        publishedAt: currentDate.toISOString(),
         authorId: user?.id
       })
     })
